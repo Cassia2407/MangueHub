@@ -1,0 +1,11 @@
+{
+  "title": "FalaMangue!",
+  "description": "Connect students through a forum while monitoring a mangrove plant with IoT sensors, promoting knowledge sharing and environmental sustainability.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mangue Interativo — Desafios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --creme: #EEF1E3;
+    --tinta: #16261C;
+    --tinta-suave: #5B6B57;
+    --verde-selo: #5B8C4B;
+    --card: #FFFFFF;
+    --linha: #E4E9D6;
+    --problema: #C1432F;
+    --solucao: #2F5FB0;
+    --check: #5B8C4B;
+    --raio: 14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Inter',-apple-system,sans-serif;
+    color:var(--tinta);
+    background: var(--creme);
+  }
+
+  .secao{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+  }
+  .selo{
+    display:block;
+    width: fit-content;
+    margin: 0 auto 18px;
+    padding: 6px 16px;
+    border: 1px solid var(--verde-selo);
+    border-radius: 999px;
+    color: var(--verde-selo);
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+  .titulo{
+    text-align:center;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .subtitulo{
+    text-align:center;
+    color: var(--tinta-suave);
+    font-size: 15.5px;
+    margin: 0 0 48px;
+  }
+
+  .grade{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .grade .cartao:nth-child(4),
+  .grade .cartao:nth-child(5){
+    grid-column: span 1;
+  }
+  @media (max-width: 900px){
+    .grade{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px){
+    .grade{ grid-template-columns: 1fr; }
+  }
+
+  .cartao{
+    background: var(--card);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    padding: 22px 22px 18px;
+    box-shadow: 0 8px 24px -16px rgba(22,38,28,0.2);
+  }
+  .rotulo{
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .rotulo.problema{ color: var(--problema); }
+  .rotulo.solucao{ color: var(--solucao); margin-top: 16px; }
+  .texto-problema{
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--tinta);
+  }
+  .texto-solucao{
+    font-size: 13.5px;
+    color: var(--tinta-suave);
+    line-height: 1.5;
+  }
+  .divisor{
+    border: none;
+    border-top: 1px solid var(--linha);
+    margin: 16px 0 12px;
+  }
+  .aprendizado{
+    display:flex;
+    align-items:flex-start;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--check);
+  }
+  .aprendizado svg{ flex-shrink:0; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<section class="secao">
+  <span class="selo">Desafios</span>
+  <h2 class="titulo">Obstáculos que viraram aprendizado</h2>
+  <p class="subtitulo">Cada problema encontrado foi uma oportunidade de crescer.</p>
+
+  <div class="grade">
+
+    <div class="cartao">
+      <div class="rotulo problema">PROBLEMA</div>
+      <div class="texto-problema">Firmware não compilava</div>
+      <div class="rotulo solucao">SOLUÇÃO</div>
+      <p class="texto-solucao">Uma string de depuração estava quebrada com uma quebra de linha "crua" no meio do código, o que travava a compilação. Foi identificada e corrigida com o escape <code>\n</code>.</p>
+      <hr class="divisor">
+      <div class="aprendizado">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        Depuração de sintaxe em C/C++.
+      </div>
+    </div>
+
+    <div class="cartao">
+      <div class="rotulo problema">PROBLEMA</div>
+      <div class="texto-problema">Planta só reagia a cada 30 segundos</div>
+      <div class="rotulo solucao">SOLUÇÃO</div>
+      <p class="texto-solucao">A reação na matriz de LED estava presa dentro do mesmo bloco da leitura periódica. Separamos "decidir o estado" (a cada 30s) de "mostrar o estado" (a cada loop), com uma máquina de estados (enum + switch).</p>
+      <hr class="divisor">
+      <div class="aprendizado">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        Uso de millis() sem travar o loop principal.
+      </div>
+    </div>
+
+    <div class="cartao">
+      <div class="rotulo problema">PROBLEMA</div>
+      <div class="texto-problema">Calibração do sensor de umidade do solo</div>
+      <div class="rotulo solucao">SOLUÇÃO</div>
+      <p class="texto-solucao">Os limites de leitura tinham sido definidos em bancada. Depois que a planta foi transferida para o pote acrílico definitivo, o sensor foi testado direto na terra real para ajustar os valores.</p>
+      <hr class="divisor">
+      <div class="aprendizado">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        Calibração com dado real, não só teórico.
+      </div>
+    </div>
+
+    <div class="cartao">
+      <div class="rotulo problema">PROBLEMA</div>
+      <div class="texto-problema">Prazo curto para hardware + firmware + site</div>
+      <div class="rotulo solucao">SOLUÇÃO</div>
+      <p class="texto-solucao">Com apenas 30h distribuídas em 5 dias, priorizamos deixar o hardware e o firmware funcionais como entrega garantida, tratando a interface web em paralelo e aceitando fechá-la só no último dia.</p>
+      <hr class="divisor">
+      <div class="aprendizado">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        Gestão de escopo sob prazo curto.
+      </div>
+    </div>
+
+    <div class="cartao">
+      <div class="rotulo problema">PROBLEMA</div>
+      <div class="texto-problema">Arduino e site ainda não conversam entre si</div>
+      <div class="rotulo solucao">SOLUÇÃO</div>
+      <p class="texto-solucao">A ponte de comunicação entre o firmware e a interface web (via ESP32/Wi-Fi) não coube no tempo do sprint. Ficou documentada como próximo passo no roadmap, com o site funcionando de forma independente por enquanto.</p>
+      <hr class="divisor">
+      <div class="aprendizado">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        Roadmap realista além do sprint.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

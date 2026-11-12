@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mangue Interativo — Timeline e Estatísticas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --creme: #EEF1E3;
+    --creme-2: #E4E9D6;
+    --tinta: #16261C;
+    --tinta-suave: #5B6B57;
+    --verde-selo: #5B8C4B;
+    --card: #FFFFFF;
+    --icone-bg: #1F3327;
+    --escuro: #16261C;
+    --escuro-card: #21352A;
+    --escuro-icone: #33513E;
+    --escuro-texto-suave: #9DB08F;
+    --raio: 14px;
+    --raio-peq: 10px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Inter',-apple-system,sans-serif;
+    color:var(--tinta);
+    background:#fff;
+  }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+
+  /* ===================== SEÇÃO 1 — TIMELINE ===================== */
+  .secao-timeline{
+    background: var(--creme);
+    padding: 72px 24px 88px;
+  }
+  .miolo{
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .selo{
+    display:block;
+    width: fit-content;
+    margin: 0 auto 18px;
+    padding: 6px 16px;
+    border: 1px solid var(--verde-selo);
+    border-radius: 999px;
+    color: var(--verde-selo);
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .titulo-secao{
+    text-align:center;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .subtitulo-secao{
+    text-align:center;
+    color: var(--tinta-suave);
+    font-size: 15.5px;
+    max-width: 560px;
+    margin: 0 auto 48px;
+  }
+
+  .trilho{
+    position: relative;
+    display:flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 26px;
+  }
+  .trilho::before{
+    content:"";
+    position:absolute;
+    top: 26px;
+    left: 26px;
+    right: 26px;
+    height: 1px;
+    background: var(--creme-2);
+    border-top: 1px dashed #C7D0B4;
+    z-index:0;
+  }
+  .marco{
+    position: relative;
+    z-index: 1;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: var(--icone-bg);
+    color: #fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 22px;
+    flex-shrink:0;
+  }
+
+  .grade-cards{
+    display:grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 14px;
+  }
+  .cartao{
+    background: var(--card);
+    border-radius: var(--raio);
+    overflow:hidden;
+    box-shadow: 0 8px 24px -14px rgba(22,38,28,0.25);
+    display:flex;
+    flex-direction:column;
+  }
+  .cartao-imagem{
+    height: 90px;
+    background: linear-gradient(135deg, #E7EBD9, #D3DCC1);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 26px;
+    color: var(--icone-bg);
+  }
+  .cartao-corpo{
+    padding: 16px 14px 18px;
+  }
+  .cartao-data{
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--verde-selo);
+    margin-bottom: 6px;
+  }
+  .cartao-titulo{
+    font-size: 14.5px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height:1.3;
+  }
+  .cartao-desc{
+    font-size: 12.5px;
+    color: var(--tinta-suave);
+    line-height:1.45;
+  }
+
+  @media (max-width: 980px){
+    .grade-cards{ grid-template-columns: repeat(4,1fr); }
+    .trilho{ display:none; }
+  }
+  @media (max-width: 620px){
+    .grade-cards{ grid-template-columns: repeat(2,1fr); }
+  }
+
+  /* ===================== SEÇÃO 2 — ESTATÍSTICAS ===================== */
+  .secao-stats{
+    background: var(--escuro);
+    padding: 72px 24px 88px;
+  }
+  .secao-stats .selo{
+    border-color: var(--escuro-texto-suave);
+    color: var(--escuro-texto-suave);
+  }
+  .secao-stats .titulo-secao,
+  .secao-stats .subtitulo-secao{
+    color: #fff;
+  }
+  .secao-stats .subtitulo-secao{
+    color: var(--escuro-texto-suave);
+  }
+
+  .grade-stats{
+    max-width: 1000px;
+    margin: 0 auto;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .stat-card{
+    background: var(--escuro-card);
+    border: 1px solid #2C4335;
+    border-radius: var(--raio);
+    padding: 22px 20px;
+  }
+  .stat-icone{
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: var(--escuro-icone);
+    color: #B7E29B;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+  .stat-numero{
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .stat-numero .placeholder{
+    color: #E3B34E;
+  }
+  .stat-legenda{
+    font-size: 12.5px;
+    color: var(--escuro-texto-suave);
+  }
+
+  @media (max-width: 780px){
+    .grade-stats{ grid-template-columns: repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== SEÇÃO 1 — TIMELINE ===================== -->
+<section class="secao-timeline">
+  <div class="miolo">
+    <span class="selo">Linha do tempo</span>
+    <h2 class="titulo-secao">Da ideia à entrega</h2>
+    <p class="subtitulo-secao">As etapas que marcaram cada fase do desenvolvimento do Mangue Interativo — 5 dias de imersão, de 20 a 24 de julho de 2026.</p>
+
+    <div class="trilho">
+      <div class="marco">💡</div>
+      <div class="marco">📖</div>
+      <div class="marco">🎨</div>
+      <div class="marco">🔧</div>
+      <div class="marco">🧪</div>
+      <div class="marco">⚙️</div>
+      <div class="marco">🚀</div>
+    </div>
+
+    <div class="grade-cards">
+      <div class="cartao">
+        <div class="cartao-imagem">💡</div>
+        <div class="cartao-corpo">
+          <div class="cartao-data">Dia 1 · 20 jul</div>
+          <div class="cartao-titulo">Ideia inicial</div>
+          <p class="cartao-desc">Nasce a proposta do Mangue Interativo: unir sustentabilidade e IoT numa planta inspirada no mangue vermelho, a partir do contato com os módulos de hardware.</p>
+        </div>
+      </div>
+
+      <div class="cartao">
+        <div class="cartao-imagem">📖</div>
+        <div class="cartao-corpo">
+          <div class="cartao-data">Dia 1 · 20 jul</div>
+          <div class="cartao-titulo">Pesquisa e reconhecimento</div>
+          <p class="cartao-desc">Reconhecimento dos sensores (LDR, DHT11, solo, HC-SR04) e definição dos estados/emoções da planta.</p>
+        </div>
+      </div>
+
+      <div class="cartao">
+        <div class="cartao-imagem">🎨</div>
+        <div class="cartao-corpo">
+          <div class="cartao-data">Dia 3 · 22 jul</div>
+          <div class="cartao-titulo">Protótipos no Figma</div>
+          <p class="cartao-desc">Início do design da interface web, pensada para estudantes acompanharem a planta remotamente.</p>
+        </div>
+      </div>
+
+      <div class="cartao">
+        <div class="cartao-imagem">🔧</div>
+        <div class="cartao-corpo">
+          <div class="cartao-data">Dias 2–4 · 21–23 jul</div>
+          <div class="cartao-titulo">Construção do hardware IoT</div>
+          <p class="cartao-desc">Montagem do circuito com Arduino UNO; planta transferida para o pote acrílico definitivo.</p>
+        </div>
+      </div>
+
+      <div class="cartao">
+        <div class="cartao-imagem">🧪</div>
+        <div class="cartao-corpo">
+          <div class="cartao-data">Dia 3 · 22 jul</div>
+          <div class="cartao-titulo">Testes</div>
+          <p class="cartao-desc">Testes individuais de cada sensor e início da integração num sketch único.</p>
+        </div>
+      </div>
+
+      <div class="cartao">
+        <div class="cartao-imagem">⚙️</div>
+        <div class="cartao-corpo">
+          <div class="cartao-data">Dia 4 · 23 jul</div>
+          <div class="cartao-titulo">Desenvolvimento do app</div>
+          <p class="cartao-desc">Design chega a ~70%; firmware compilado, organizado e documentado (README).</p>
+        </div>
+      </div>
+
+      <div class="cartao">
+        <div class="cartao-imagem">🚀</div>
+        <div class="cartao-corpo">
+          <div class="cartao-data">Dia 5 · 24 jul</div>
+          <div class="cartao-titulo">Entrega final</div>
+          <p class="cartao-desc">Firmware, hardware e site finalizados; apresentação à banca avaliadora.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SEÇÃO 2 — ESTATÍSTICAS ===================== -->
+<section class="secao-stats">
+  <div class="miolo">
+    <span class="selo">Estatísticas</span>
+    <h2 class="titulo-secao">O projeto em números</h2>
+    <p class="subtitulo-secao" style="text-align:center; max-width:560px; margin:0 auto 48px;">Métricas reais do processo de desenvolvimento (5 dias de imersão IoT & Maker).</p>
+
+    <div class="grade-stats">
+      <div class="stat-card">
+        <div class="stat-icone">📅</div>
+        <div class="stat-numero">5</div>
+        <div class="stat-legenda">Dias de desenvolvimento</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icone">⏱️</div>
+        <div class="stat-numero">30h</div>
+        <div class="stat-legenda">Horas de trabalho (20h presenciais + 10h extraclasse)</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icone">🔀</div>
+        <div class="stat-numero"><span class="placeholder">—</span></div>
+        <div class="stat-legenda">Commits realizados — rode <code class="mono">git log --oneline | wc -l</code> no repositório e substitua aqui</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icone">🧩</div>
+        <div class="stat-numero">3</div>
+        <div class="stat-legenda">Protótipos criados (versões do firmware)</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icone">💻</div>
+        <div class="stat-numero">~1.480</div>
+        <div class="stat-legenda">Linhas de código (firmware + site)</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icone">🖥️</div>
+        <div class="stat-numero">4</div>
+        <div class="stat-legenda">Telas desenvolvidas (ThingSpeak, Documentação, Códigos, Sobre)</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icone">👥</div>
+        <div class="stat-numero"><span class="placeholder">5</span></div>
+        <div class="stat-legenda">Reuniões/encontros realizados — ajuste se tiveram alinhamentos extras entre vocês</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icone">🔖</div>
+        <div class="stat-numero">3</div>
+        <div class="stat-legenda">Versões do projeto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
